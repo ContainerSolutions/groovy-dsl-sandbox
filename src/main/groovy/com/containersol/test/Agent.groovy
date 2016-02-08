@@ -3,7 +3,7 @@ package com.containersol.test
 import groovy.util.logging.Slf4j
 
 @Slf4j
-class AgentGroup {
+class Agent {
 
     def call(Closure cl) {
 

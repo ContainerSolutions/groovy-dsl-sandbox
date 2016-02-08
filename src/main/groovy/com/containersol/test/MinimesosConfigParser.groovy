@@ -12,14 +12,15 @@ class MinimesosConfigParser {
     }
 
     MinimesosDsl parse(String config) {
+
         Binding binding = new Binding();
+
         MinimesosDsl minimesosDsl = new MinimesosDsl()
         binding.setVariable("minimesos", minimesosDsl)
+
         GroovyShell shell = new GroovyShell(binding)
         Script script = shell.parse(config)
         script.run()
-
-        log.info "DONE"
 
         return minimesosDsl
     }

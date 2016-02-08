@@ -20,18 +20,18 @@ class MinimesosDsl {
     def loggingLevel        = "INFO"
     def clusterName         = "minimesos-test"
 
+    List<Agent> agents = new ArrayList<>()
+
+    def agent( @DelegatesTo(strategy=Closure.DELEGATE_ONLY, value=Agent) Closure cl) {
+        def agent = new Agent()
+        def code = cl.rehydrate(agent, this, this)
+        code.resolveStrategy = Closure.DELEGATE_ONLY
+        code()
+        agents.add( agent )
+    }
+
     def methodMissing(String methodName, args) {
-
-        if (methodName.equals("agent")) {
-
-            Closure closure = args[0]
-            closure.setDelegate(new AgentGroup())
-            closure.setResolveStrategy(Closure.DELEGATE_ONLY)
-            closure()
-
-        } else {
-            throw new MissingPropertyException("Block '" + methodName + "' not supported");
-        }
+        throw new MissingPropertyException("Block '" + methodName + "' not supported");
     }
 
 }

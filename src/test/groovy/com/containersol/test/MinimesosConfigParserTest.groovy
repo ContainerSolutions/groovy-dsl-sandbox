@@ -7,7 +7,7 @@ import static org.junit.Assert.assertEquals;
 
 public class MinimesosConfigParserTest {
 
-    MinimesosConfigParser parser
+    private MinimesosConfigParser parser
 
     @Before
     public void before() {
@@ -73,5 +73,41 @@ public class MinimesosConfigParserTest {
         parser.parse(config)
     }
 
+
+    @Test
+    public void testLoadSingleAgent() {
+
+        String config = """
+                minimesos {
+                    agent {
+                        loggingLevel = "WARN"
+                    }
+                }
+        """
+
+        MinimesosDsl dsl = parser.parse(config)
+        assertEquals( 1, dsl.agents.size() )
+
+        Agent agent = dsl.agents.get(0)
+        assertEquals( "WARN", agent.loggingLevel )
+
+    }
+
+    @Test
+    public void testLoadTwoAgents() {
+
+        String config = """
+                minimesos {
+                    agent {
+                    }
+                    agent {
+                    }
+                }
+        """
+
+        MinimesosDsl dsl = parser.parse(config)
+        assertEquals( 2, dsl.agents.size() )
+
+    }
 
 }
