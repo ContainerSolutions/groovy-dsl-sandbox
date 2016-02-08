@@ -3,21 +3,25 @@ package com.containersol.test
 import groovy.util.logging.Slf4j
 
 @Slf4j
-class MinimesosConfig {
+class MinimesosConfigParser {
 
     static void main(String[] args) {
-
         File file = new File("minimesos.cfg")
+        MinimesosConfigParser config = new MinimesosConfigParser()
+        config.parse(file);
+    }
 
+    MinimesosDsl parse(File file) {
         Binding binding = new Binding();
-        MinimesosDsl jenkinsDsl = new MinimesosDsl()
-        binding.setVariable("minimesos", jenkinsDsl)
+        MinimesosDsl minimesosDsl = new MinimesosDsl()
+        binding.setVariable("minimesos", minimesosDsl)
         GroovyShell shell = new GroovyShell(binding)
         Script script = shell.parse(file)
         script.run()
 
         log.info "DONE"
 
+        return minimesosDsl
     }
 
 }
