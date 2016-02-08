@@ -22,12 +22,7 @@ class MinimesosDsl extends DslLoadable {
 
     Master master = null
     List<Agent> agents = new ArrayList<>()
-
-    def agent(@DelegatesTo(Agent) Closure cl) {
-        def agent = new Agent()
-        delegateTo(agent, cl)
-        agents.add(agent)
-    }
+    Zookeeper zookeeper = null
 
     def master(@DelegatesTo(Agent) Closure cl) {
         if( master != null ) {
@@ -35,6 +30,20 @@ class MinimesosDsl extends DslLoadable {
         }
         master = new Master()
         delegateTo(master, cl)
+    }
+
+    def agent(@DelegatesTo(Agent) Closure cl) {
+        def agent = new Agent()
+        delegateTo(agent, cl)
+        agents.add(agent)
+    }
+
+    def zookeeper(@DelegatesTo(Zookeeper) Closure cl) {
+        if (zookeeper != null) {
+            throw new RuntimeException("Multiple Zookeepers are not supported in this version yet")
+        }
+        zookeeper = new Zookeeper();
+        delegateTo(zookeeper, cl)
     }
 
 }

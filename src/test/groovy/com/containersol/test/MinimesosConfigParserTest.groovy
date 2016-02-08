@@ -145,4 +145,41 @@ public class MinimesosConfigParserTest {
 
     }
 
+    @Test
+    public void testZookeeper() {
+        String config = """
+                minimesos {
+                    zookeeper {
+
+                    }
+                }
+        """
+
+        parser.parse(config)
+
+        MinimesosDsl dsl = parser.parse(config)
+        assertNotNull(dsl.zookeeper)
+        assertEquals("jplock/zookeeper", dsl.zookeeper.imageName)
+        assertEquals("3.4.6", dsl.zookeeper.imageTag)
+    }
+
+    @Test
+    public void testZookeeper_properties() {
+        String config = """
+                minimesos {
+                    zookeeper {
+                      imageName = "containersol/zookeeper"
+                      imageTag  = "3.4.5"
+                    }
+                }
+        """
+
+        parser.parse(config)
+
+        MinimesosDsl dsl = parser.parse(config)
+        assertNotNull(dsl.zookeeper)
+        assertEquals("containersol/zookeeper", dsl.zookeeper.imageName)
+        assertEquals("3.4.5", dsl.zookeeper.imageTag)
+    }
+
 }
