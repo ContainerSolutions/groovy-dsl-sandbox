@@ -4,7 +4,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNotNull
+import static org.junit.Assert.assertNull;
 
 public class MinimesosConfigParserTest {
 
@@ -218,6 +219,46 @@ public class MinimesosConfigParserTest {
         assertNotNull(dsl.marathon)
         assertEquals("containersol/marathon", dsl.marathon.imageName)
         assertEquals("v0.14.0", dsl.marathon.imageTag)
+    }
+
+    @Test
+    public void testLoadSingleAgentResources() {
+
+        String config = """
+                minimesos {
+                    agent {
+                        resources {
+                            cpu {
+                                role  = "logstash"
+                                value = "1"
+                            }
+                            cpu {
+                                role  = "*"
+                                value = "4"
+                            }
+                            ports {
+                                role  = "logstash"
+                                value = "[514-514]"
+                            }
+                        }
+                    }
+                }
+        """
+
+        Config dsl = parser.parse(config)
+        assertEquals( 1, dsl.agents.size() )
+
+        Agent agent = dsl.agents.get(0)
+
+        assertEquals( "4", agent.resources.cpus["*"].value )
+        assertEquals( "1", agent.resources.cpus["logstash"].value )
+
+        assertNotNull( agent.resources.mems["*"] )
+        assertNull( agent.resources.mems["logstash"] )
+
+        assertNotNull( agent.resources.ports["*"] )
+        assertEquals( "[514-514]", agent.resources.ports["logstash"].value )
+
     }
 
 }

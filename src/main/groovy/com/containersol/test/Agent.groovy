@@ -9,10 +9,10 @@ class Agent extends Block {
     def imageTag      = "0.25"
     def loggingLevel  = "INFO"
 
-    def agent(@DelegatesTo(Agent) Closure cl) {
-        def agent = new Agent()
-        delegateTo(agent, cl)
-        agents.add(agent)
+    AgentResources resources = new AgentResources()
+
+    def resources(@DelegatesTo(AgentResources) Closure cl) {
+        delegateTo(resources, cl)
     }
 
 }
