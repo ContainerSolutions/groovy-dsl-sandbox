@@ -12,7 +12,6 @@ class MinimesosConfigParser {
     }
 
     MinimesosDsl parse(String config) {
-
         Binding binding = new Binding();
 
         MinimesosDsl minimesosDsl = new MinimesosDsl()
@@ -26,9 +25,7 @@ class MinimesosConfigParser {
     }
 
     MinimesosDsl parse(File file) {
-
-        return parse( file.text )
-
+        return parse(file.text)
     }
 
 }
