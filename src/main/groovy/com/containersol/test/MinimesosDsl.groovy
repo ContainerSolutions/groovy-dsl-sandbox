@@ -14,20 +14,30 @@ class MinimesosDsl {
         cl.call();
     }
 
-    def exposePorts         = true
-    int timeout             = 60
-    String mesosVersion     = "0.25"
-    def loggingLevel        = "INFO"
-    def clusterName         = "minimesos-test"
+    def exposePorts = true
+    int timeout = 60
+    String mesosVersion = "0.25"
+    def loggingLevel = "INFO"
+    def clusterName = "minimesos-test"
 
+    Master master = null
     List<Agent> agents = new ArrayList<>()
 
-    def agent( @DelegatesTo(strategy=Closure.DELEGATE_ONLY, value=Agent) Closure cl) {
+    def agent(@DelegatesTo(Agent) Closure cl) {
         def agent = new Agent()
-        def code = cl.rehydrate(agent, this, this)
+        delegateTo(agent, cl)
+        agents.add(agent)
+    }
+
+    def master(@DelegatesTo(Agent) Closure cl) {
+        master = new Master()
+        delegateTo(master, cl)
+    }
+
+    def delegateTo(Object obj, Closure cl) {
+        def code = cl.rehydrate(obj, this, this)
         code.resolveStrategy = Closure.DELEGATE_ONLY
         code()
-        agents.add( agent )
     }
 
     def methodMissing(String methodName, args) {

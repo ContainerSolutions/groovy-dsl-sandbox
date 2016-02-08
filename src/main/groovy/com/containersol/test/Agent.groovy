@@ -5,15 +5,6 @@ import groovy.util.logging.Slf4j
 @Slf4j
 class Agent {
 
-    def call(Closure cl) {
-
-        log.info "Processing AgentGroup"
-
-        cl.setDelegate(this);
-        cl.setResolveStrategy(Closure.DELEGATE_ONLY)
-        cl.call();
-    }
-
     def imageName     = "containersol/mesos-agent"
     def imageTag      = "0.25"
     def loggingLevel  = "INFO"

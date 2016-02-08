@@ -3,7 +3,8 @@ package com.containersol.test
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertEquals
+import static org.junit.Assert.assertNotNull;
 
 public class MinimesosConfigParserTest {
 
@@ -107,6 +108,23 @@ public class MinimesosConfigParserTest {
 
         MinimesosDsl dsl = parser.parse(config)
         assertEquals( 2, dsl.agents.size() )
+
+    }
+
+    @Test
+    public void testLoadMaster() {
+
+        String config = """
+                minimesos {
+                    master {
+                        imageName  = "another/master"
+                    }
+                }
+        """
+
+        MinimesosDsl dsl = parser.parse(config)
+        assertNotNull( dsl.master )
+        assertEquals( "another/master", dsl.master.imageName )
 
     }
 
