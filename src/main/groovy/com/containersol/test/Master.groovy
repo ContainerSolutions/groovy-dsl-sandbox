@@ -3,7 +3,7 @@ package com.containersol.test
 import groovy.util.logging.Slf4j
 
 @Slf4j
-class Master {
+class Master extends DslLoadable {
 
     def imageName     = "containersol/mesos-master"
     def imageTag      = "0.25"

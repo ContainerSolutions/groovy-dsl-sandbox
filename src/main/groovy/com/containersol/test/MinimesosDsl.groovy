@@ -3,7 +3,7 @@ package com.containersol.test
 import groovy.util.logging.Slf4j
 
 @Slf4j
-class MinimesosDsl {
+class MinimesosDsl extends DslLoadable {
 
     def call(Closure cl) {
 
@@ -35,16 +35,6 @@ class MinimesosDsl {
         }
         master = new Master()
         delegateTo(master, cl)
-    }
-
-    def delegateTo(Object obj, Closure cl) {
-        def code = cl.rehydrate(obj, this, this)
-        code.resolveStrategy = Closure.DELEGATE_ONLY
-        code()
-    }
-
-    def methodMissing(String methodName, args) {
-        throw new MissingPropertyException("Block '" + methodName + "' not supported");
     }
 
 }
