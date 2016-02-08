@@ -3,18 +3,18 @@ package com.containersol.test
 import groovy.util.logging.Slf4j
 
 @Slf4j
-class MinimesosConfigParser {
+class ConfigParser {
 
     static void main(String[] args) {
         File file = new File("minimesos.cfg")
-        MinimesosConfigParser parser = new MinimesosConfigParser()
+        ConfigParser parser = new ConfigParser()
         parser.parse(file);
     }
 
-    MinimesosDsl parse(String config) {
+    Config parse(String config) {
         Binding binding = new Binding();
 
-        MinimesosDsl minimesosDsl = new MinimesosDsl()
+        Config minimesosDsl = new Config()
         binding.setVariable("minimesos", minimesosDsl)
 
         GroovyShell shell = new GroovyShell(binding)
@@ -24,7 +24,7 @@ class MinimesosConfigParser {
         return minimesosDsl
     }
 
-    MinimesosDsl parse(File file) {
+    Config parse(File file) {
         return parse(file.text)
     }
 

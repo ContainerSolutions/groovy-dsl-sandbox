@@ -3,7 +3,7 @@ package com.containersol.test
 import groovy.util.logging.Slf4j
 
 @Slf4j
-class Agent extends DslLoadable {
+class Agent extends Block {
 
     def imageName     = "containersol/mesos-agent"
     def imageTag      = "0.25"

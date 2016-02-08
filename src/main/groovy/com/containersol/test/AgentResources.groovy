@@ -3,7 +3,7 @@ package com.containersol.test
 import groovy.util.logging.Slf4j
 
 @Slf4j
-class AgentResources extends DslLoadable {
+class AgentResources extends Block {
 
 //    cpu {
 //        role  = "logstash"

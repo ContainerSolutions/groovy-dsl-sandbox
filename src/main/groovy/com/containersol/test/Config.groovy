@@ -3,10 +3,9 @@ package com.containersol.test
 import groovy.util.logging.Slf4j
 
 @Slf4j
-class MinimesosDsl extends DslLoadable {
+class Config extends Block {
 
     def call(Closure cl) {
-
         log.info "Processing MinimesosDsl"
 
         cl.setDelegate(this);
@@ -26,7 +25,7 @@ class MinimesosDsl extends DslLoadable {
     Marathon marathon = null
 
     def master(@DelegatesTo(Agent) Closure cl) {
-        if( master != null ) {
+        if (master != null) {
             throw new RuntimeException("Multiple Masters are not supported in this version yet")
         }
         master = new Master()

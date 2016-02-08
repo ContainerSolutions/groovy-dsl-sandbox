@@ -1,6 +1,6 @@
 package com.containersol.test;
 
-class DslLoadable {
+class Block {
 
     def delegateTo(Object obj, Closure cl) {
         def code = cl.rehydrate(obj, this, this)

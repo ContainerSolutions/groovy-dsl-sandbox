@@ -8,11 +8,11 @@ import static org.junit.Assert.assertNotNull;
 
 public class MinimesosConfigParserTest {
 
-    private MinimesosConfigParser parser
+    private ConfigParser parser
 
     @Before
     public void before() {
-        parser = new MinimesosConfigParser()
+        parser = new ConfigParser()
     }
 
     @Test
@@ -86,7 +86,7 @@ public class MinimesosConfigParserTest {
                 }
         """
 
-        MinimesosDsl dsl = parser.parse(config)
+        Config dsl = parser.parse(config)
         assertEquals( 1, dsl.agents.size() )
 
         Agent agent = dsl.agents.get(0)
@@ -106,7 +106,7 @@ public class MinimesosConfigParserTest {
                 }
         """
 
-        MinimesosDsl dsl = parser.parse(config)
+        Config dsl = parser.parse(config)
         assertEquals( 2, dsl.agents.size() )
 
     }
@@ -122,7 +122,7 @@ public class MinimesosConfigParserTest {
                 }
         """
 
-        MinimesosDsl dsl = parser.parse(config)
+        Config dsl = parser.parse(config)
         assertNotNull( dsl.master )
         assertEquals( "another/master", dsl.master.imageName )
 
@@ -157,7 +157,7 @@ public class MinimesosConfigParserTest {
 
         parser.parse(config)
 
-        MinimesosDsl dsl = parser.parse(config)
+        Config dsl = parser.parse(config)
         assertNotNull(dsl.zookeeper)
         assertEquals("jplock/zookeeper", dsl.zookeeper.imageName)
         assertEquals("3.4.6", dsl.zookeeper.imageTag)
@@ -176,7 +176,7 @@ public class MinimesosConfigParserTest {
 
         parser.parse(config)
 
-        MinimesosDsl dsl = parser.parse(config)
+        Config dsl = parser.parse(config)
         assertNotNull(dsl.zookeeper)
         assertEquals("containersol/zookeeper", dsl.zookeeper.imageName)
         assertEquals("3.4.5", dsl.zookeeper.imageTag)
@@ -194,7 +194,7 @@ public class MinimesosConfigParserTest {
 
         parser.parse(config)
 
-        MinimesosDsl dsl = parser.parse(config)
+        Config dsl = parser.parse(config)
         assertNotNull(dsl.marathon)
         assertEquals("mesosphere/marathon", dsl.marathon.imageName)
         assertEquals("v0.13.0", dsl.marathon.imageTag)
@@ -214,7 +214,7 @@ public class MinimesosConfigParserTest {
 
         parser.parse(config)
 
-        MinimesosDsl dsl = parser.parse(config)
+        Config dsl = parser.parse(config)
         assertNotNull(dsl.marathon)
         assertEquals("containersol/marathon", dsl.marathon.imageName)
         assertEquals("v0.14.0", dsl.marathon.imageTag)
