@@ -30,7 +30,7 @@ class MinimesosDsl {
             closure()
 
         } else {
-            log.error "Unsupported option: " + methodName
+            throw new MissingPropertyException("Block '" + methodName + "' not supported");
         }
     }
 
