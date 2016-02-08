@@ -23,6 +23,7 @@ class MinimesosDsl extends DslLoadable {
     Master master = null
     List<Agent> agents = new ArrayList<>()
     Zookeeper zookeeper = null
+    Marathon marathon = null
 
     def master(@DelegatesTo(Agent) Closure cl) {
         if( master != null ) {
@@ -45,5 +46,14 @@ class MinimesosDsl extends DslLoadable {
         zookeeper = new Zookeeper();
         delegateTo(zookeeper, cl)
     }
+
+    def marathon(@DelegatesTo(Marathon) Closure cl) {
+        if (marathon != null) {
+            throw new RuntimeException("Cannot have more than 1 marathon")
+        }
+        marathon = new Marathon();
+        delegateTo(marathon, cl)
+    }
+
 
 }

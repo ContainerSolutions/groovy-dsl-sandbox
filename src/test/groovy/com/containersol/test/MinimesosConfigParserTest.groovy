@@ -182,4 +182,42 @@ public class MinimesosConfigParserTest {
         assertEquals("3.4.5", dsl.zookeeper.imageTag)
     }
 
+    @Test
+    public void testMarathon() {
+        String config = """
+                minimesos {
+                    marathon {
+
+                    }
+                }
+        """
+
+        parser.parse(config)
+
+        MinimesosDsl dsl = parser.parse(config)
+        assertNotNull(dsl.marathon)
+        assertEquals("mesosphere/marathon", dsl.marathon.imageName)
+        assertEquals("v0.13.0", dsl.marathon.imageTag)
+    }
+
+
+    @Test
+    public void testMarathon_properties() {
+        String config = """
+                minimesos {
+                    marathon {
+                      imageName = "containersol/marathon"
+                      imageTag  = "v0.14.0"
+                    }
+                }
+        """
+
+        parser.parse(config)
+
+        MinimesosDsl dsl = parser.parse(config)
+        assertNotNull(dsl.marathon)
+        assertEquals("containersol/marathon", dsl.marathon.imageName)
+        assertEquals("v0.14.0", dsl.marathon.imageTag)
+    }
+
 }
