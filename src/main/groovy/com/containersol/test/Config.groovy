@@ -6,8 +6,6 @@ import groovy.util.logging.Slf4j
 class Config extends Block {
 
     def call(Closure cl) {
-        log.info "Processing MinimesosDsl"
-
         cl.setDelegate(this);
         cl.setResolveStrategy(Closure.DELEGATE_ONLY)
         cl.call();
