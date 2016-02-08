@@ -128,4 +128,21 @@ public class MinimesosConfigParserTest {
 
     }
 
+    @Test(expected=Exception.class)
+    public void testFailureToLoadTwoMaster() {
+
+        String config = """
+                minimesos {
+                    master {
+                        imageName  = "another/master"
+                    }
+                    master {
+                    }
+                }
+        """
+
+       parser.parse(config)
+
+    }
+
 }

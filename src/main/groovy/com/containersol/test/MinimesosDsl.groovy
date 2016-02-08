@@ -30,6 +30,9 @@ class MinimesosDsl {
     }
 
     def master(@DelegatesTo(Agent) Closure cl) {
+        if( master != null ) {
+            throw new RuntimeException("Multiple Masters are not supported in this version yet")
+        }
         master = new Master()
         delegateTo(master, cl)
     }
