@@ -7,7 +7,7 @@ class MinimesosDsl {
 
     def call(Closure cl) {
 
-        log.info "Processing Main Configuration"
+        log.info "Processing MinimesosDsl"
 
         cl.setDelegate(this);
         cl.setResolveStrategy(Closure.DELEGATE_ONLY)
@@ -15,15 +15,12 @@ class MinimesosDsl {
     }
 
     def exposePorts         = true
-    def timeout             = 60
-    def mesosVersion        = 0.25
+    int timeout             = 60
+    String mesosVersion     = "0.25"
     def loggingLevel        = "INFO"
     def clusterName         = "minimesos-test"
 
     def methodMissing(String methodName, args) {
-
-        System.out.println( Arrays.asList(args) );
-        System.out.println( "" );
 
         if (methodName.equals("agent")) {
 

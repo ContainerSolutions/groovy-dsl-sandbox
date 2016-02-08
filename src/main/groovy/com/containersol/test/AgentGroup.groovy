@@ -7,7 +7,7 @@ class AgentGroup {
 
     def call(Closure cl) {
 
-        log.info "Processing Main Configuration"
+        log.info "Processing AgentGroup"
 
         cl.setDelegate(this);
         cl.setResolveStrategy(Closure.DELEGATE_ONLY)
